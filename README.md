@@ -14,6 +14,8 @@ mkdir -p out && MAKEFUN_OUTPUT_DIR=out python3 main.py
 
 ## Verify
 
+These commands check the output hash and confirm it matches the source byte for byte.
+
 ```sh
 sha256sum out/entry.png
 cmp out/entry.png entry.png
