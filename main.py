@@ -22,6 +22,12 @@ def main():
             raise FileNotFoundError(f"source image is missing: {source}")
         os.makedirs(output_dir, exist_ok=True)
         shutil.copyfile(source, destination)
+        with open(destination, "rb") as image_file:
+            signature = image_file.read(8)
+        if signature != b"\x89PNG\r\n\x1a\n" and not signature.startswith(b"\xff\xd8\xff"):
+            raise ValueError(
+                "format validation failed: destination is not a PNG or JPEG image"
+            )
         source_size = os.path.getsize(source)
         destination_size = os.path.getsize(destination)
         source_hash = sha256(source)
