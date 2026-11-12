@@ -6,8 +6,8 @@ import sys
 
 def sha256(path):
     digest = hashlib.sha256()
-    with open(path, "rb") as source_file:
-        for chunk in iter(lambda: source_file.read(65536), b""):
+    with open(path, "rb") as image_file:
+        for chunk in iter(lambda: image_file.read(65536), b""):
             digest.update(chunk)
     return digest.hexdigest()
 
@@ -40,7 +40,7 @@ def main():
         print(f"Error: {error}", file=sys.stderr)
         return 1
 
-    print(f"Wrote {destination} ({source_size} bytes)")
+    print(f"Wrote {destination} ({source_size} bytes, sha256 {destination_hash})")
     return 0
 
 
